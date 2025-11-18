@@ -262,8 +262,8 @@ The next step is to **create a data converter** for our device.
     
     // Return the formatted result for ThingsBoard.
     return result;}return decodePayload(payload, metadata);
-   
-    ## Connect device to ThingsBoard
+/**   
+## Connect device to ThingsBoard
 
 Download the RadioNode terminal program.
 
