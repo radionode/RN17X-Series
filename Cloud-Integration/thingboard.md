@@ -262,41 +262,41 @@ The next step is to **create a data converter** for our device.
     
     // Return the formatted result for ThingsBoard.
     return result;}return decodePayload(payload, metadata);
-/**   
+/**
+``` 
 ## Connect device to ThingsBoard
 
-Download the RadioNode terminal program.
+Download the **RadioNode terminal program**.
 
 Run the RadioNode terminal program and enter the password **radionode114** to open the console menu.
 
-![RadioNode Console Menu](images/TB_RN172/TB_9.png)
+![RadioNode Terminal Console Menu](images/TB_RN172/TB_9.png)
 
-In the **Network Setup** menu, add the Wi-Fi SSID and password.
+In the **Network Setup** menu, add the Wi-Fi **SSID** and **password**.
 
-![WiFi Setup](images/TB_RN172/TB_10.png)
+![RN172 Terminal WiFi Setup](images/TB_RN172/TB_10.png)
 
 Go to **2. System Setup** and select **B. Set Destination of HTTP**.
 
-Choose **2: CUSTOMER_V2** from the available destinations.  
+Choose **2: CUSTOMER\_V2** from the available destinations.
 This sets the device to send data to the custom HTTP server.
 
-![HTTP Destination](images/TB_RN172/TB_11.png)
+![RN172 Terminal HTTP Destination Menu](images/TB_RN172/TB_11.png)
 
 From the ThingsBoard **Integration** tab, copy the **HTTP Endpoint URL**.
 
-![TB Integration Endpoint](images/TB_RN172/TB_12.png)
+![ThingsBoard HTTP Endpoint URL Copy 1](images/TB_RN172/TB_12.png)
 
-![TB Integration Setup](images/TB_RN172/TB_13.png)
+![ThingsBoard HTTP Endpoint URL Copy 2](images/TB_RN172/TB_13.png)
 
 Next, go to **4. HTTP Destination Setup**:
 
-- **A. Set Host URL:** `thingsboard.cloud`  
-- **D. Set HTTP DATAIN:** paste the endpoint  
-- **E. Set HTTP TIMESTAMP:** paste the endpoint  
-- **F. Set HTTP BACKUPIN:** paste the endpoint  
+* **A. Set Host URL:** `thingsboard.cloud`
+* **D. Set HTTP DATAIN:** paste the endpoint
+* **E. Set HTTP TIMESTAMP:** paste the endpoint
+* **F. Set HTTP BACKUPIN:** paste the endpoint
 
 This completes the device setup.
-
 
 ---
 
@@ -304,8 +304,7 @@ This completes the device setup.
 
 Once the device connects, open the **Devices** page to view the latest telemetry.
 
-![Latest Telemetry](images/TB_RN172/TB_14.png)
-
+![ThingsBoard Latest Telemetry Data](images/TB_RN172/TB_14.png)
 
 ---
 
@@ -313,35 +312,35 @@ Once the device connects, open the **Devices** page to view the latest telemetry
 
 To visualize the sensor data, you can configure a dashboard with custom widgets.
 
-1. Go to the **Dashboards** page and click the **+** button.
+1.  Go to the **Dashboards** page and click the **`+`** button.
 
-![Add Dashboard](images/TB_RN172/TB_15.png)
+![ThingsBoard Dashboards Page](images/TB_RN172/TB_15.png)
 
-2. Enter a name for the dashboard and click **Add**.
+2.  Enter a name for the dashboard and click **Add**.
 
-![Dashboard Name](images/TB_RN172/TB_16.png)
+![ThingsBoard Add New Dashboard](images/TB_RN172/TB_16.png)
 
-3. After creation, the dashboard opens automatically.  
-   Click **Add widget**.
+3.  After creation, the dashboard opens automatically.
+    Click **Add widget**.
 
-![Add Widget](images/TB_RN172/TB_17.png)
+![ThingsBoard Dashboard Add Widget](images/TB_RN172/TB_17.png)
 
-4. ThingsBoard provides various widget bundles.  
-   For example, select **Time series chart** from the **Charts** bundle to visualize device telemetry.
+4.  ThingsBoard provides various widget bundles.
+    For example, select **Time series chart** from the **Charts** bundle to visualize device telemetry.
 
-![Time Series Widget](images/TB_RN172/TB_18.png)
+![ThingsBoard Time Series Widget Selection](images/TB_RN172/TB_18.png)
 
-5. In widget settings, configure:
+5.  In widget settings, configure:
 
-   - **Time window**
-   - **Datasource** → Select your device  
-   - Add more data series if needed
+    * **Time window**
+    * **Datasource** → Select your device
+    * Add more data series if needed
 
 Click **Add**, then **Save** the dashboard.
 
-![Dashboard Configured](images/TB_RN172/TB_19.png)
+![ThingsBoard Widget Configuration](images/TB_RN172/TB_19.png)
 
-A sample dashboard showing indoor temperature, indoor humidity, and a historical temperature–humidity chart is shown below.  
-You can downloa
+A sample dashboard showing indoor temperature, indoor humidity, and a historical temperature–humidity chart is shown below.
+You can download this dashboard in **JSON format** and **import** it into your own ThingsBoard instance.
 
-    
+![ThingsBoard Sample Dashboard](images/TB_RN172/TB_20.png)
