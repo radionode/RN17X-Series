@@ -1,82 +1,61 @@
-# 📡 RN172Plus Series Integration Guide with ThingsBoard (HTTP)
+# RN172Plus Series Integration Guide with ThingsBoard (HTTP)
 
 ## Introduction
 
-The **RN172WCD** by RADIONODE is a versatile Wi-Fi transmitter for real-time environmental and gas monitoring in industrial, commercial, and laboratory environments.
+The **RN172WCD** by RADIONODE is a versatile Wi-Fi sensor data transmitter designed for real-time environmental monitoring in industrial, commercial, and laboratory settings.
 
-It supports a wide range of UA Series sensors:
+It supports a wide range of UA series sensors, including gas detectors (CO₂, O₂, NH₃, etc.), thermal sensors (PT100, thermocouples), and analog transmitters (4–20 mA, 0–1 V), enabling flexible deployment across various applications.
 
-* Gas sensors (CO₂, O₂, NH₃, H₂S, CO, etc.)
-* Thermal sensors (PT100, Thermocouples)
-* Analog inputs (4–20 mA, 0–1 V)
+With Wi-Fi (IEEE 802.11 b/g), MODBUS TCP, and HTTP/HTTPS connectivity, the device seamlessly transmits data to cloud platforms like Radionode365, local servers, or PLCs for centralized monitoring. Additional features include a built-in buzzer, dual-color LED indicators, and a 4-digit display for real-time readings and alerts.
 
-It communicates via:
-
-* Wi-Fi (IEEE 802.11 b/g)
-* MODBUS TCP
-* HTTP / HTTPS
-
-The device can send data to:
-
-* Radionode365 Cloud
-* Local servers
-* PLC systems
-* ThingsBoard (this guide)
-
-Additional features:
-
-* Built-in buzzer
-* Multi-color LED indicators
-* 4-digit display
-* Remote Telnet configuration
-* Alarm notifications (SMS, voice)
+The RN172WCD also supports remote configuration via Telnet and offers robust alarm functionalities, including SMS and voice call notifications, making it an ideal solution for safety-critical environments such as gas monitoring, HVAC systems, and industrial automation.
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
-To continue with this guide, you will need:
+To continue with this guide we will need the following:
 
-* RN172Plus series device
+* RN172plus series
 * RN172WCD user manual
-* ThingsBoard account (Cloud / CE / PE)
+* ThingsBoard account
 
 ---
 
-## 1. Create Device on ThingsBoard
+## Create device on ThingsBoard
 
-1.  Log in and navigate to **Entities** → **Devices**
-2.  Click **`+` Add new device**
-3.  Enter a device name (e.g., `My Device`)
-4.  Click **Add**
+For simplicity, we will create the device manually using the UI.
+
+1.  Log in to your ThingsBoard instance and navigate to **Entities**. Then open the **Devices** page.
+2.  Click the **`+`** icon in the top right corner of the table and select **Add new device**.
+3.  Enter a device name, for example, `My Device`. No other changes are required at this stage.
+4.  Click **Add** to create the device.
 
 Your device has been successfully added.
-![ThingsBoard Add New Device Screen](images/TB_RN172/TB_2.png)
+![ThingsBoard Add New Device Screen](images/TB_RN172/TB_1.png)
 
 ---
 
-## 2. Install Required Payload Decoders
+## Install required Payload decoders
 
-After adding the device, you must create an HTTP Integration so the RN172 can send data to ThingsBoard.
+After adding the device we need to create an Integration for creating the device connection with the thingsboard platform.
 
-1.  Click **Integrations**
-2.  Click the **`+`** button to add a new integration
-    ![ThingsBoard Integrations Tab](images/TB_RN172/TB_5.png)
+1.  Click the **integrations** tab and start to add an integration by pressing the **“+”** sign.
+    ![ThingsBoard Integrations Tab](images/TB_RN172/TB_2.png)
 
-3.  Select **HTTP**
-    ![ThingsBoard Select Integration Type as HTTP](images/TB_RN172/TB_6.png)
+2.  Click the integrations tab and start to add an integration by selecting an integration type.
+    ![ThingsBoard Add Integration Button](images/TB_RN172/TB_3.png)
 
-4.  Enter a name for the integration
-    ![ThingsBoard Integration Basic Settings](images/TB_RN172/TB_7.png)
+3.  Here we are selecting the **HTTP** for our RN172 device.
+    ![ThingsBoard Select HTTP Integration Type](images/TB_RN172/TB_4.png)
 
-Next: create a Data Converter.
+4.  Then add a name for the integration.
+    ![ThingsBoard Integration Basic Settings](images/TB_RN172/TB_5.png)
 
-1.  Name your converter
-2.  Select Decoder Type: **JS**
-3.  Paste the following code:
-    ![ThingsBoard Uplink Data Converter Setup](images/TB_RN172/TB_8.png)
+The next step is to **create a data converter** for our device.
 
-### 🧩 Full ThingsBoard Decoder (Copy & Paste)
+1.  Give a name to the data converter
+2.  Click the decoding configuration as **js** type and add the code given below.
 
 ```javascript
 /**
@@ -89,8 +68,7 @@ Next: create a Data Converter.
         text += String.fromCharCode(payload[i]);
         i++;
     }
-    return text;
-}/**
+    return text;}/**
  * Helper function to decode raw payload bytes to a JSON object.
  * It safely parses the string and returns a JSON object.
  */function decodeToJson(payload) {
@@ -99,8 +77,7 @@ Next: create a Data Converter.
         return JSON.parse(str);
     } catch (e) {
         return null;
-    }
-}/**
+    }}/**
  * A custom parser to handle URL-encoded payloads.
  */function parseUrlEncoded(payload) {
     var data = {};
@@ -118,8 +95,7 @@ Next: create a Data Converter.
             i++;
         }
     }
-    return data;
-}// --- Main ThingsBoard Decode Function ---function decodePayload(payload, metadata) {
+    return data;}// --- Main ThingsBoard Decode Function ---function decodePayload(payload, metadata) {
     var deviceName = "Unknown_Device";
     var attributes = {};
     var telemetry = {};
@@ -173,6 +149,7 @@ Next: create a Data Converter.
     var atcqMatch = inputString.match(/ATCQ\s+([^,]+),([^,]+),([^,]+),([^,]+)/);
     
     if (atcqMatch) {
+        // ATCQ payload format
         data = {};
         data.co2 = parseFloat(atcqMatch[1]);
         data.o3 = parseFloat(atcqMatch[2]);
@@ -180,6 +157,7 @@ Next: create a Data Converter.
         data.humidity = parseFloat(atcqMatch[4]);
         detectedModel = 'UA58-APC';
     } else {
+        // Other payload formats (JSON, URL-encoded)
         data = decodeToJson(payload);
         if (!data) {
             data = parseUrlEncoded(payload);
@@ -190,9 +168,11 @@ Next: create a Data Converter.
         return null;
     }
 
+    // --- Step 2: Model Identification and Override ---
     var originalSModel = data.model || data.SMODEL;
     detectedModel = detectedModel || originalSModel;
 
+    // Override the model if the payload structure matches UA58-APC.
     if (detectedModel === 'UA-DEVICE' && data.C000) {
         var channelData = data.C000.split('|').filter(x => x.trim() !== '');
         if (channelData.length === 5) {
@@ -202,6 +182,7 @@ Next: create a Data Converter.
 
     var modelVars = ua_models_js[detectedModel];
 
+    // --- Step 3: Process Telemetry and Attributes ---
     if (data.mac) {
         deviceName = data.mac;
         attributes.mac = data.mac;
@@ -216,6 +197,7 @@ Next: create a Data Converter.
     if (data.interval) attributes.transmitInterval = parseFloat(data.interval);
     if (data.tags) attributes.tags = data.tags;
 
+    // Process dynamic channels based on the detected model
     if (detectedModel && modelVars) {
         var dynamicKey;
         for (dynamicKey in data) {
@@ -239,6 +221,7 @@ Next: create a Data Converter.
         }
     }
 
+    // Process static keys
     if (data.co2 !== undefined) telemetry.co2 = parseFloat(data.co2);
     if (data.o3 !== undefined) telemetry.o3 = parseFloat(data.o3);
     if (data.temperature !== undefined) telemetry.temperature = parseFloat(data.temperature);
@@ -248,6 +231,7 @@ Next: create a Data Converter.
     if (data.analog_1 !== undefined) telemetry.analog_1 = parseFloat(data.analog_1);
     if (data.analog_2 !== undefined) telemetry.analog_2 = parseFloat(data.analog_2);
 
+    // Process RN172WC 'tags' payload separately
     if (detectedModel === "RN172WC" && data.tags) {
         var tagValues = data.tags.split('|').filter(s => s.trim() !== '');
         if (tagValues.length >= 2) {
@@ -256,10 +240,12 @@ Next: create a Data Converter.
         }
     }
 
+    // If no telemetry values are found, add a heartbeat to ensure a valid payload
     if (Object.keys(telemetry).length === 0) {
         telemetry.heartbeat = Date.now();
     }
     
+    // --- Step 4: Construct the final output object in the correct format ---
     var result = {
         deviceName: deviceName,
         telemetry: {}
@@ -274,5 +260,88 @@ Next: create a Data Converter.
         result.telemetry[key] = attributes[key];
     }
     
-    return result;
-}return decodePayload(payload, metadata);
+    // Return the formatted result for ThingsBoard.
+    return result;}return decodePayload(payload, metadata);
+   
+    ## Connect device to ThingsBoard
+
+Download the RadioNode terminal program.
+
+Run the RadioNode terminal program and enter the password **radionode114** to open the console menu.
+
+![RadioNode Console Menu](images/TB_RN172/TB_9.png)
+
+In the **Network Setup** menu, add the Wi-Fi SSID and password.
+
+![WiFi Setup](images/TB_RN172/TB_10.png)
+
+Go to **2. System Setup** and select **B. Set Destination of HTTP**.
+
+Choose **2: CUSTOMER_V2** from the available destinations.  
+This sets the device to send data to the custom HTTP server.
+
+![HTTP Destination](images/TB_RN172/TB_11.png)
+
+From the ThingsBoard **Integration** tab, copy the **HTTP Endpoint URL**.
+
+![TB Integration Endpoint](images/TB_RN172/TB_12.png)
+
+![TB Integration Setup](images/TB_RN172/TB_13.png)
+
+Next, go to **4. HTTP Destination Setup**:
+
+- **A. Set Host URL:** `thingsboard.cloud`  
+- **D. Set HTTP DATAIN:** paste the endpoint  
+- **E. Set HTTP TIMESTAMP:** paste the endpoint  
+- **F. Set HTTP BACKUPIN:** paste the endpoint  
+
+This completes the device setup.
+
+
+---
+
+## Check data on ThingsBoard
+
+Once the device connects, open the **Devices** page to view the latest telemetry.
+
+![Latest Telemetry](images/TB_RN172/TB_14.png)
+
+
+---
+
+## Setting up the Dashboard
+
+To visualize the sensor data, you can configure a dashboard with custom widgets.
+
+1. Go to the **Dashboards** page and click the **+** button.
+
+![Add Dashboard](images/TB_RN172/TB_15.png)
+
+2. Enter a name for the dashboard and click **Add**.
+
+![Dashboard Name](images/TB_RN172/TB_16.png)
+
+3. After creation, the dashboard opens automatically.  
+   Click **Add widget**.
+
+![Add Widget](images/TB_RN172/TB_17.png)
+
+4. ThingsBoard provides various widget bundles.  
+   For example, select **Time series chart** from the **Charts** bundle to visualize device telemetry.
+
+![Time Series Widget](images/TB_RN172/TB_18.png)
+
+5. In widget settings, configure:
+
+   - **Time window**
+   - **Datasource** → Select your device  
+   - Add more data series if needed
+
+Click **Add**, then **Save** the dashboard.
+
+![Dashboard Configured](images/TB_RN172/TB_19.png)
+
+A sample dashboard showing indoor temperature, indoor humidity, and a historical temperature–humidity chart is shown below.  
+You can downloa
+
+    
