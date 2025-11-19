@@ -29,6 +29,7 @@ After creating an account in the **tago.io** platform, the next step is to creat
 
 3.  Select **`Custom`** device type.
     ![Tago.io Select Device Type](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_2.png)
+  
 
 4.  Give a name to the device and set the **`Custom HTTP`** connector.
     ![Tago.io Custom HTTP Connector Setup](RN17X-Series/Cloud-Integration/images/tago_RN172/Image_3.png)
