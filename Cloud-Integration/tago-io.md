@@ -28,11 +28,11 @@ After creating an account in the **tago.io** platform, the next step is to creat
 ![Tago.io Devices Page](images/tago_RN172/Tago_1.png)
 
 3.  Select **`Custom`** device type.
-    ![Tago.io Select Device Type](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_2.png)
+    ![Tago.io Select Device Type](images/tago_RN172/Tago_2.png)
   
 
 4.  Give a name to the device and set the **`Custom HTTP`** connector.
-    ![Tago.io Custom HTTP Connector Setup](RN17X-Series/Cloud-Integration/images/tago_RN172/Image_3.png)
+    ![Tago.io Custom HTTP Connector Setup](images/tago_RN172/Image_3.png)
 
 5.  After the device is created, copy the **Device-Token** from the device information tab to be used in the RN172 terminal program.
 
@@ -41,10 +41,10 @@ After creating an account in the **tago.io** platform, the next step is to creat
 ## Install required Payload parsers
 
 1.  From the device information tab, select the **Payload Parser** tab.
-    ![Tago.io Payload Parser Tab](RN17X-Series/Cloud-Integration/images/tago_RN172/Image_4.png)
+    ![Tago.io Payload Parser Tab](images/tago_RN172/Image_4.png)
 
 2.  Copy and paste the Tago.io JavaScript parser code (provided below) into the editor.
-    ![Tago.io Payload Parser Editor](RN17X-Series/Cloud-Integration/images/tago_RN172/Image_5.png)
+    ![Tago.io Payload Parser Editor](images/tago_RN172/Image_5.png)
 
 ```javascript
 /**
@@ -210,9 +210,9 @@ return parsePayload(payload);
 
 1.  Download the **RadioNode terminal program**.
 2.  Run the RadioNode terminal program and enter the password **`radionode114`** to open the console menu.
-    ![RadioNode Console Menu](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_7.png) 
+    ![RadioNode Console Menu](images/tago_RN172/Tago_7.png) 
 3.  In the **Network Setup** menu, add the Wi-Fi **SSID** and **password**.
-    ![RN172 Terminal WiFi Setup](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_8.png) 
+    ![RN172 Terminal WiFi Setup](images/tago_RN172/Tago_8.png) 
 4.  Go to the **“2. System Setup”** menu and select **“B. Set Destination of HTTP.”**
 5.  Select **“2:CUSTOMER\_V2”** from the three destinations. This means the data will be sent to the custom server V2.
 
@@ -225,8 +225,8 @@ Go to the **“4. HTTP Destination Setup”** menu and configure the following:
 * Select **“K. Set HeaderInfo1:Device-Token:”** (Copy and paste **token** from the tago website)
 * Select **“M. Set HTTP ACK OK String:”** `"status":true`
 
-![RN172 Terminal HTTP Destination Setup](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_9.png) 
-![RN172 Terminal HTTP Setup Details](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_10.png) 
+![RN172 Terminal HTTP Destination Setup](images/tago_RN172/Tago_9.png) 
+![RN172 Terminal HTTP Setup Details](images/tago_RN172/Tago_10.png) 
 
 ---
 
@@ -234,7 +234,7 @@ Go to the **“4. HTTP Destination Setup”** menu and configure the following:
 
 To access data, just go to the **Devices** page and click on the device name and the **Data** button. We can access the real-time data.
 
-![Tago.io Device Data View](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_11.png) 
+![Tago.io Device Data View](images/tago_RN172/Tago_11.png) 
 
 ---
 
@@ -243,13 +243,13 @@ To access data, just go to the **Devices** page and click on the device name and
 Dashboards can be created to visualize the data easily.
 
 1.  In the main page you can find a **Dashboard** tab with a **`+`** sign.
-    ![Tago.io Dashboard Tab](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_12.png) 
+    ![Tago.io Dashboard Tab](images/tago_RN172/Tago_12.png) 
 2.  Give a name to the dashboard. You can choose from the template or create a dashboard by choosing your own widgets.
-    ![Tago.io Add Dashboard Dialog](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_13.png) 
+    ![Tago.io Add Dashboard Dialog](images/tago_RN172/Tago_13.png) 
 3.  Choose a widget type and then set the widget name.
 4.  Choose the device from where the data needs to be shown in real time.
-    ![Tago.io Widget Configuration](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_14.png) 
+    ![Tago.io Widget Configuration](images/tago_RN172/Tago_14.png) 
 
 A sample dashboard is shown below.
-![Tago.io Sample Dashboard](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_15.png)
+![Tago.io Sample Dashboard](images/tago_RN172/Tago_15.png)
 
