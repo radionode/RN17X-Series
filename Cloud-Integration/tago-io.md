@@ -25,7 +25,7 @@ After creating an account in the **tago.io** platform, the next step is to creat
 1.  Navigate to the **Devices** tab.
 2.  Click the **Add Device** button.
 
-![Tago.io Devices Page](Cloud-Integration/images/tago_RN172/Tago_1.png)
+![Tago.io Devices Page](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_1.png)
 
 3.  Select **`Custom`** device type.
     ![Tago.io Select Device Type](RN17X-Series/Cloud-Integration/images/tago_RN172/Tago_2.png)
