@@ -32,7 +32,7 @@ After creating an account in the **tago.io** platform, the next step is to creat
   
 
 4.  Give a name to the device and set the **`Custom HTTP`** connector.
-    ![Tago.io Custom HTTP Connector Setup](images/tago_RN172/Image_3.png)
+    ![Tago.io Custom HTTP Connector Setup](images/tago_RN172/Tago_3.png)
 
 5.  After the device is created, copy the **Device-Token** from the device information tab to be used in the RN172 terminal program.
 
@@ -41,10 +41,10 @@ After creating an account in the **tago.io** platform, the next step is to creat
 ## Install required Payload parsers
 
 1.  From the device information tab, select the **Payload Parser** tab.
-    ![Tago.io Payload Parser Tab](images/tago_RN172/Image_4.png)
+    ![Tago.io Payload Parser Tab](images/tago_RN172/Tago_4.png)
 
 2.  Copy and paste the Tago.io JavaScript parser code (provided below) into the editor.
-    ![Tago.io Payload Parser Editor](images/tago_RN172/Image_5.png)
+    ![Tago.io Payload Parser Editor](images/tago_RN172/Tago_5.png)
 
 ```javascript
 /**
