@@ -18,7 +18,7 @@ To continue with this guide you will need the following:
 
 ---
 
-## Create device on Tago
+## Create device on Tago.io Platform
 
 After creating an account in the **tago.io** platform, the next step is to create a device.
 
