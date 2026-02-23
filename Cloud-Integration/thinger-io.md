@@ -1,4 +1,4 @@
-# RN172Plus Series Integration Guide with ThingsBoard (HTTP)
+# RN172Plus Series Integration Guide with Thinger.io platform
 
 ## Introduction
 
@@ -18,7 +18,7 @@ To continue with this guide we will need the following:
 
 * RN172plus series
 * RN172WCD user manual
-* ThingsBoard account
+* Thinger.io account
 
 ---
 
