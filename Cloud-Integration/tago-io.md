@@ -27,7 +27,9 @@ After creating an account in the **tago.io** platform, the next step is to creat
 
 ![Tago.io Devices Page](images/tago_RN172/Tago_1.png)
 
-3.  Select **`Custom`** device type.
+3.  Once you click the Add Device button, there will be a prompt to select the connector. Just type Radionode. We already have radionode devices provisioning in the tago.io platform. 
+With one click you can immediately use the RN-17x series installed easily with this implementation.
+
     ![Tago.io Select Device Type](images/tago_RN172/Tago_2.png)
   
 
